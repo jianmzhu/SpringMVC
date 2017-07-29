@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- 自动扫描的处理类，controller -->
+	<context:component-scan base-package="com.alex.springmvc.example,
+	    									com.alex.springmvc.form.example,
+	    									com.alex.springmvc.staticpage.example,
+	    									com.alex.springmvc.redirect.example,
+	    									com.alex.springmvc.xmlViews.example,
+	    									com.alex.springmvc.resourcesViews.example,
+	    									com.alex.springmvc.rssmessage.example,
+	    									com.alex.springmvc.xmlgenerate.example,
+	    									com.alex.springmvc.jsongenerate.example,
+	    									com.alex.springmvc.pdfgenerate.example,
+	    									com.alex.springmvc.excelgenerate.example,
+	    									com.alex.springmvc.angularjs.example" />
+	
+	
+	<!-- 启用注解 -->
+	<context:annotation-config/>
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- 由于DispatchServlet全拦截了，系统的资源访问可以通过下列方法配置路径，resources需要有annotation-driven的声明 -->
+	<!-- resources等同于在web.xml中配置
+	<servlet-mapping>       
+		<servlet-name>default</servlet-name>    
+		<url-pattern>*.js</url-pattern>    
+	</servlet-mapping>   
+	
+	
+	 -->
+	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/js/**" location="/js/" />
+	<resources mapping="/images/**" location="/images/" />
+	<resources mapping="/html/**" location="/WEB-INF/views/html/" />
+	
+	
+	<!--  Xml视图解析器，读取xmlViews.xml的内容 -->
+	<beans:bean class="org.springframework.web.servlet.view.XmlViewResolver">
+	    <beans:property name="location">
+	        <!-- <beans:value>/WEB-INF/spring/root-context.xml</beans:value> -->
+	        <beans:value>/resources/xmlViews.xml</beans:value>
+	    </beans:property>
+	    <!-- order项表明视图解析器的执行顺序，数字越小，有限度越高，SpringMVC会首先解析有限度高的视图解析器是否有这个视图连接，有则使用，无则搜索下一个 -->
+	    <beans:property name="order" value="3"/>
+	</beans:bean>
+	
+	<!-- 
+		资源绑定视图解析器 绑定一个放于classpath下面的resourcestest.properties，配置如下
+		resourcesHello.(class)=org.springframework.web.servlet.view.JstlView
+		resourcesHello.url=/WEB-INF/views/resourcesViews/home.jsp
+		
+		resourcesHello为控制器返回的字符串，用法与Xml视图解析器相类似
+		都是定义org.springframework.web.servlet.view.JstlView，
+		然后映射地址/WEB-INF/views/resourcesViews/home.jsp
+	 -->
+	<beans:bean class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+      <beans:property name="basename" value="resourcestest" />
+      <!-- order项表明视图解析器的执行顺序，数字越小，有限度越高，SpringMVC会首先解析有限度高的视图解析器是否有这个视图连接，有则使用，无则搜索下一个 -->
+      <beans:property name="order" value="1"/>
+   </beans:bean>
+	
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- controller解析完后，返回跳转的页面关键字，再加前缀、后缀组成要访问的页面(提供的URI解析为实际URI，称之为内部资源视图解析器) -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+		<!-- order项表明视图解析器的执行顺序，数字越小，有限度越高，SpringMVC会首先解析有限度高的视图解析器是否有这个视图连接，有则使用，无则搜索下一个 -->
+		<beans:property name="order" value="2"/>
+	</beans:bean>
+
+	<!-- HibernateValidator配置 需要在classpath路径下有hibernateValidator.properties文件绑定需要验证的字段-->
+	<!--如 
+		NotEmpty.hibernateUser.name = Name is required!
+		Range.hibernateUser.age = Age value must be between 6 and 150!
+		Range.hibernateUser.id = Id value must be between 6 and 150!
+		NotEmpty.hibernateUser.id = Id is required!
+		声明这个检查是NotEmpty还是Range，在相应的实体类中，写上注解声明该字段做什么检查
+	 -->
+	<beans:bean
+		class="org.springframework.context.support.ResourceBundleMessageSource"
+		id="hibernateValidatorSource">
+		<beans:property name="basename" value="hibernateValidator" />
+	</beans:bean>
+	<!-- HibernateValidator配置 -->
+	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	
+	<!-- 简单地址映射 -->
+	<beans:bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	    <beans:property name="mappings">
+	        <beans:props>
+	            <!-- 地址为：http://localhost:8080/SpringMVC/simple.html 将进入到SimpleController的处理器当中进行处理 -->
+	            <beans:prop key="/simple.html">simpleController</beans:prop>
+	            <beans:prop key="/PDFGenerator/PDF">pdfController</beans:prop>
+	            <beans:prop key="/ExcelGenerator/Excel">excelController</beans:prop>
+	        </beans:props>
+	    </beans:property>
+	</beans:bean>
+	
+	<beans:bean id="simpleController" class="com.alex.springmvc.simpleurlhandlermapping.example.SimpleController"/>
+	<!-- 简单地址映射 -->
+	
+	
+	<!-- RSS源配置 -->
+	<!-- 
+		先配置org.springframework.web.servlet.view.BeanNameViewResolver 进行BeanName的视图解析
+		再配置com.alex.springmvc.rssmessage.example.RSSFeedViewer继承AbstractRssFeedView进行RSS
+	 -->
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+	    <beans:property name="order" value="4"/>
+	    </beans:bean>
+	<beans:bean id="rssViewer" class="com.alex.springmvc.rssmessage.example.RSSFeedViewer" />
+	<!-- RSS源配置 -->
+	
+	
+	<!-- 使用ControllerClassNameHandlerMapping会将页面带有以下Controller名字的页面自动转向到对应Controller -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/> -->   
+   	<!-- 例如http://localhost:8080/SpringMVC/hello或者http://localhost:8080/SpringMVC/helloWorld会进行跳转，大写的hello则不跳转 -->
+   	<!-- <bean class="com.yiibai.springmvc.HelloController" /> -->
+   	<!-- <bean class="com.yiibai.springmvc.WelcomeController"/> -->
+   	
+   	<!-- 多动作控制器映射 使用org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping类，下面映射类会按照控制器中的名字进行映射-->
+		 <beans:bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+	<!-- http://localhost:8080/SpringMVC/test.html 放入 com.alex.springmvc.multiaction.example.UserController控制器中处理，使用test方法-->
+		 <beans:bean name="/test.html" class="com.alex.springmvc.multiaction.example.UserController"/>
+	<!-- http://localhost:8080/SpringMVC/user/*.html 放入 com.alex.springmvc.multiaction.example.UserController控制器中处理，使用对应*号名字的方法-->
+		 <beans:bean name="/user/*.html" class="com.alex.springmvc.multiaction.example.UserController"/> 
+	<!-- 也可以使用以下配置但使用org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping 可能会跟上面的配置冲突 -->
+	<!-- <beans:bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"> 
+      <beans:property name="caseSensitive" value="true" />
+   	</beans:bean>
+	<beans:bean class="com.alex.springmvc.multiaction.example.UserController">
+	    <beans:property name="methodNameResolver">
+	        <beans:bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+	            <beans:property name="mappings">
+	                <beans:props>
+	                    <beans:prop key="/test.html">test</beans:prop>
+	                    <beans:prop key="/user/add.html">add</beans:prop>
+	                    <beans:prop key="/user/remove.html">remove</beans:prop>
+	                </beans:props>
+	            </beans:property>
+	        </beans:bean>
+	    </beans:property>
+	</beans:bean> -->
+
+	<!-- 也可以用这种方法 在路径下加http://localhost:8080/SpringMVC/test.html?action=add[test,remove]等访问-->
+	<!-- <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"> 
+      <property name="caseSensitive" value="true" />
+   </bean>
+   <bean class="com.yiibai.springmvc.UserController">
+      <property name="methodNameResolver">
+         <bean class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+            <property name="paramName" value="action"/>
+         </bean>
+      </property>
+   </bean> -->
+	
+</beans:beans>
