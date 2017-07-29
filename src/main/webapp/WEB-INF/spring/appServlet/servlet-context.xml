@@ -43,6 +43,8 @@
 	<resources mapping="/js/**" location="/js/" />
 	<resources mapping="/images/**" location="/images/" />
 	<resources mapping="/html/**" location="/WEB-INF/views/html/" />
+	<resources mapping="/angularjs/css/**" location="/WEB-INF/views/angularjs/css/" />
+	<resources mapping="/angularjs/js/**" location="/WEB-INF/views/angularjs/js/" />
 	
 	
 	<!--  Xml视图解析器，读取xmlViews.xml的内容 -->

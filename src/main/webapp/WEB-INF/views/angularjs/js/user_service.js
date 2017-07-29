@@ -3,7 +3,7 @@
 App.factory('UserService', ['$http', '$q', function($http, $q){
 	return {
 		fetchAllUsers: function() {
-		return $http.get('http://localhost:8080/Spring4MVCAngularJSExample/user/')
+		return $http.get('http://localhost:8080/SpringMVC/angularjs/user/')
 							.then(
 									function(response){
 										return response.data;
@@ -16,7 +16,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
 			},
 		    
 		    createUser: function(user){
-					return $http.post('http://localhost:8080/Spring4MVCAngularJSExample/user/', user)
+					return $http.post('http://localhost:8080/SpringMVC/angularjs/user/', user)
 							.then(
 									function(response){
 										return response.data;
@@ -29,7 +29,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
 		    },
 		    
 		    updateUser: function(user, id){
-					return $http.put('http://localhost:8080/Spring4MVCAngularJSExample/user/'+id, user)
+					return $http.put('http://localhost:8080/SpringMVC/angularjs/user/'+id, user)
 							.then(
 									function(response){
 										return response.data;
@@ -42,7 +42,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
 			},
 		    
 			deleteUser: function(id){
-					return $http.delete('http://localhost:8080/Spring4MVCAngularJSExample/user/'+id)
+					return $http.delete('http://localhost:8080/SpringMVC/angularjs/user/'+id)
 							.then(
 									function(response){
 										return response.data;

@@ -50,7 +50,7 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
           self.fetchAllUsers();
 
           self.submit = function() {
-              if(self.user.id===null){
+              if(self.user.id==null){
                   console.log('Saving New User', self.user);    
                   self.createUser(self.user);
               }else{
@@ -63,7 +63,7 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
           self.edit = function(id){
               console.log('id to be edited', id);
               for(var i = 0; i < self.users.length; i++){
-                  if(self.users[i].id === id) {
+                  if(self.users[i].id == id) {
                      self.user = angular.copy(self.users[i]);
                      break;
                   }
@@ -72,8 +72,11 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
               
           self.remove = function(id){
               console.log('id to be deleted', id);
-              if(self.user.id === id) {//clean form if the user to be deleted is shown there.
-                 self.reset();
+              for(var i = 0; i < self.users.length; i++){
+                  if(self.users[i].id == id) {
+                     self.reset();
+                     break;
+                  }
               }
               self.deleteUser(id);
           };
