@@ -6,14 +6,14 @@
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%t] %d{yyyy-mm-dd HH:mm:ss,SSS} %-20.100c.[%M---%L] %-5p====>%m%n" />
+			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
 
 	<!-- DailyRollingFileAppender -->
 	<appender name="dailyRollFile" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="File" value="C:\\tool\\eclipse_jee_luna_win32\\test_workspace_server\\log\\dailyrollinglog\\log.txt" />
-		<param name="Threshold" value="DEBUG"/>
+		<param name="Threshold" value="INFO"/>
 		<param name="DatePattern" value="'.' yyyy-MM-dd-a"/>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="[%t] %d{yyyy-mm-dd HH:mm:ss,SSS} %-20.100c.[%M---%L] %-5p====>%m%n" />
@@ -27,7 +27,7 @@
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
-		<level value="error" />
+		<level value="info" />
 	</logger>
 	
 	<logger name="org.springframework.beans">
@@ -35,16 +35,16 @@
 	</logger>
 	
 	<logger name="org.springframework.context">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="error" />
+		<level value="info" />
 	</logger>
 	
 	<!-- Root Logger -->
 	<root>
-		<priority value="info" />
+		<priority value="DEBUG" />
 		<appender-ref ref="console" />
 		<appender-ref ref="dailyRollFile" />
 	</root>

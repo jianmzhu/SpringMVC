@@ -21,7 +21,8 @@
 	    									com.alex.springmvc.jsongenerate.example,
 	    									com.alex.springmvc.pdfgenerate.example,
 	    									com.alex.springmvc.excelgenerate.example,
-	    									com.alex.springmvc.angularjs.example" />
+	    									com.alex.springmvc.angularjs.example,
+	    									com.alex.springmvc.filedownload.example" />
 	
 	
 	<!-- 启用注解 -->
@@ -45,6 +46,10 @@
 	<resources mapping="/html/**" location="/WEB-INF/views/html/" />
 	<resources mapping="/angularjs/css/**" location="/WEB-INF/views/angularjs/css/" />
 	<resources mapping="/angularjs/js/**" location="/WEB-INF/views/angularjs/js/" />
+	<resources mapping="/static/css/**" location="/WEB-INF/static/css/" />
+	<resources mapping="/static/js/**" location="/WEB-INF/static/js/" />
+	<resources mapping="/static/html/**" location="/WEB-INF/static/html/" />
+	<resources mapping="/static/image/**" location="/WEB-INF/static/image/" />
 	
 	
 	<!--  Xml视图解析器，读取xmlViews.xml的内容 -->
