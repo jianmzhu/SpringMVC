@@ -41,18 +41,18 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
 							);
 			},
 		    
-			deleteUser: function(id){
-					return $http.delete('http://localhost:8080/SpringMVC/angularjs/user/'+id)
-							.then(
-									function(response){
-										return response.data;
-									}, 
-									function(errResponse){
-										console.error('Error while deleting user');
-										return $q.reject(errResponse);
-									}
-							);
-			}
+//			deleteUser: function(id){
+//					return $http.delete('http://localhost:8080/SpringMVC/angularjs/user/'+id)
+//							.then(
+//									function(response){
+//										return response.data;
+//									}, 
+//									function(errResponse){
+//										console.error('Error while deleting user');
+//										return $q.reject(errResponse);
+//									}
+//							);
+//			}
 		
 	};
 
