@@ -22,7 +22,8 @@
 	    									com.alex.springmvc.pdfgenerate.example,
 	    									com.alex.springmvc.excelgenerate.example,
 	    									com.alex.springmvc.angularjs.example,
-	    									com.alex.springmvc.filedownload.example" />
+	    									com.alex.springmvc.filedownload.example,
+	    									com.alex.springmvc.fileupload.example" />
 	
 	
 	<!-- 启用注解 -->
@@ -101,7 +102,12 @@
 	</beans:bean>
 	<!-- HibernateValidator配置 -->
 	
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	<beans:bean id="multipartResolver"
+	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- Maximum file size: 1MB -->
+		<!-- 1MB = 125000 Byte -->
+		<beans:property name="maxUploadSize" value="12500000" />
+	</beans:bean>
 	
 	<!-- 简单地址映射 -->
 	<beans:bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
