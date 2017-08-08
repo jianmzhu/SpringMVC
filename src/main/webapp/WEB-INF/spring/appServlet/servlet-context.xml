@@ -23,7 +23,8 @@
 	    									com.alex.springmvc.excelgenerate.example,
 	    									com.alex.springmvc.angularjs.example,
 	    									com.alex.springmvc.filedownload.example,
-	    									com.alex.springmvc.fileupload.example" />
+	    									com.alex.springmvc.fileupload.example,
+	    									com.alex.springmvc.mybatis.controller" />
 	
 	
 	<!-- 启用注解 -->
@@ -178,5 +179,24 @@
          </bean>
       </property>
    </bean> -->
+
+	<!--避免IE执行AJAX时，返回JSON出现下载文件  配置springmvc和json整合需要配置class  MappingJackson2HttpMessageConverter!!!不是MappingJacksonHttpMessageConverter-->
+	<beans:bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<beans:property name="supportedMediaTypes">
+			<beans:list>
+				<beans:value>text/html;charset=UTF-8</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>  
+   
+   <beans:bean  
+        class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">  
+        <beans:property name="messageConverters">  
+            <beans:list>  
+                <beans:ref bean="mappingJacksonHttpMessageConverter" /> <!-- JSON转换器 -->  
+            </beans:list>  
+        </beans:property>  
+    </beans:bean> 
 	
 </beans:beans>

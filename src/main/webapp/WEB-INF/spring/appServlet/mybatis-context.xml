@@ -10,7 +10,7 @@
             http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd  
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
 	default-autowire="byName" default-lazy-init="false">
-
+	<!-- 已经不使用了 -->
 	<!--本示例采用DBCP连接池，应预先把DBCP的jar包复制到工程的lib目录下。 -->
 	<context:property-placeholder location="classpath:database.properties" />
 
