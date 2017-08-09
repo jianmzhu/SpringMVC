@@ -5,11 +5,12 @@
 
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
-	    <!-- 上下文类的配置文件加载 -->
+	    <!-- 上下文类的配置文件加载，同时装载spring bean和mybatis的相关管理 -->
+	    
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 		    /WEB-INF/spring/root-context.xml,
-		    classpath:mybatis-context.xml
+		    classpath:mybatisConfig/mybatis-context.xml
 		</param-value>
 		<!-- 亦可以写成这种多配置文件模式（classpath的路径应该在项目的\src\main\resources\spring\下）
 			<param-value>

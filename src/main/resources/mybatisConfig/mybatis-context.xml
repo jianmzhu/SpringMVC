@@ -14,6 +14,7 @@
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
             http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	
+    <!-- 自动扫描com.alex.springmvc.mybatis下注解的服务类 -->
     <context:component-scan base-package="com.alex.springmvc.mybatis" />  
 
 	<!--本示例采用DBCP连接池，应预先把DBCP的jar包复制到工程的lib目录下。 -->
@@ -36,7 +37,7 @@
                 <!-- <value>classpath*:cache.properties</value> -->  
                 <!-- 此位置是相对于:文件在目录下面 -->  
                 <!-- <value>classpath*:cache/cache.properties</value> -->  
-                <value>classpath:database.properties</value>  
+                <value>classpath:mybatisConfig/mybatis_db.properties</value>  
                 <!-- 此位置是从服务器环境变量中查找名为：XXX 的值(例如：file:D:/test/test.properties) -->  
                 <!-- <value>${XXX}</value> -->  
                 <!-- 此位置是相对于:文件系统 -->  
@@ -44,7 +45,7 @@
             </list>  
         </property>  
     </bean> 
-
+	<!-- 数据源配置 类使用org.apache.commons.dbcp.BasicDataSource -->
 	 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"  
         destroy-method="close">  
         <property name="driverClassName" value="${driver}" />  
@@ -75,7 +76,7 @@
 		p:minIdle="${minIdle}"
 		p:maxWait="${maxWait}">
 	</bean> -->
-
+	<!-- 配置MyBatis的SqlSessionFactoryBean，指定dataSource -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<!--dataSource属性指定要用到的连接池-->
 		<property name="dataSource" ref="dataSource" />
@@ -87,12 +88,17 @@
 			classpath：只会到你的class路径中查找找文件; 
 			classpath*：不仅包含class路径，还包括jar文件中(class路径)进行查找. 
 		 -->
-		<property name="mapperLocations" value="classpath:mybatisMapper/*.xml" />
+		 <!-- 指定mapper.xml存放地址 -->
+		<!-- <property name="mapperLocations" value="classpath:mybatisMapper/*.xml" /> -->
+		<property name="mapperLocations" value="classpath:mybatisMapper/*Mapper.xml" />
+		<!-- <property name="mapperLocations" value="classpath:com/alex/springmvc/mybatis/mapping/*.xml" /> -->
 	</bean>
 
 	<!-- DAO接口所在包名，Spring会自动查找其下的类 ,包下的类需要使用@MapperScan注解,否则容器注入会失败 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 指定Mapper类地址，该处basePackage只需要填写包路径，不需要写入类名 -->
         <property name="basePackage" value="com.alex.springmvc.mybatis.dao" />
+        <!-- 使用SqlSessionFactoryBean -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
     

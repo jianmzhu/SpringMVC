@@ -7,5 +7,7 @@
     
   <body>  
     ${person.name}------>${massage}  
+    <hr/>
+    ${user.id}------>${massage1}  
   </body>  
 </html> 
