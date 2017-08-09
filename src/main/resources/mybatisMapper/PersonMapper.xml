@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--配置文件存放在classpath下面比较容易找 通过MyBatis Generator自动生成 Mapping.xml映射 对应namespace为Mapper的全地址 -->
 <mapper namespace="com.alex.springmvc.mybatis.dao.IPersonDao">
+    <!-- resultMap对应的是POJO类 -->
   <resultMap id="BaseResultMap" type="com.alex.springmvc.mybatis.entity.Person">
     <!--
       WARNING - @mbg.generated

@@ -1,5 +1,11 @@
 package com.alex.springmvc.mybatis.entity;
 
+/**
+ * 通过MyBatis Generator自动生成
+ * MyBatis的POJO类
+ * 
+ * @author xiaoming
+ */
 public class Person {
     /**
      *
