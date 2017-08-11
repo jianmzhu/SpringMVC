@@ -102,4 +102,12 @@ public interface IPersonDao {
      * @mbg.generated Tue Aug 08 21:39:42 CST 2017
      */
     int updateByPrimaryKey(Person record);
+    
+    public Person getPersonJoinPost(int personId);
+    
+    public Person getPersonByIf(@Param("id") int id,@Param("name") String name,@Param("website") String website);
+
+    public Person getPersonByWhereWrong(@Param("id") int id,@Param("name") String name,@Param("website") String website);
+
+    public Person getPersonByWhere(@Param("id") int id,@Param("name") String name,@Param("website") String website);
 }

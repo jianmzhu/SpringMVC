@@ -15,6 +15,79 @@
     <result column="website" jdbcType="VARCHAR" property="website" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
   </resultMap>
+  
+  	<!-- 与Post表联查结果 一对多关系 -->
+	<resultMap type="com.alex.springmvc.mybatis.entity.Person" id="resultPersonJoinPostMap">
+		<result property="id" column="perId" />
+		<result property="name" column="perName" />
+		<result property="dept" column="perDept" />
+		<result property="website" column="perWebsite" />
+		<result property="phone" column="perPhone" />
+		<!-- property="posts" 对应Person POJO里面的属性名， ofType="Post" 对应类， column="person_id"对应post表中的person_id建，与person表的id做关联 -->
+		<!-- collection表示多的一方，在一的一方有list参数 -->
+		<collection property="posts" ofType="com.alex.springmvc.mybatis.entity.Post" column="person_id">
+			<!-- 下述的键可以简化不需要javaType，jdbcType -->
+			<id property="id" column="postId" javaType="int" jdbcType="INTEGER" />
+			<result property="title" column="postTitle" javaType="string"
+				jdbcType="VARCHAR" />
+			<result property="content" column="postContent" javaType="string"
+				jdbcType="VARCHAR" />
+		</collection>
+	</resultMap>
+	
+	<select id="getPersonJoinPost" resultMap="resultPersonJoinPostMap" parameterType="int">
+		SELECT per.id perId,per.name perName,per.website perWebsite,per.phone perPhone,per.dept perDept,
+		p.post_id postId,p.title postTitle,p.content postContent
+		FROM person per, post p
+		WHERE per.id=p.person_id AND per.id=#{id} 
+  	</select>
+  
+	<select id="getPersonByIf" resultMap="BaseResultMap">
+	    select *
+	    from person
+	    where 1= 1
+	    <if test="id != null and id != ''">
+	    	and id = #{id,jdbcType=INTEGER}
+	    </if>
+	    <if test="name != null and name != ''">
+	    	and name = #{name,jdbcType=VARCHAR}
+	    </if>
+	    <if test="website != null and website != ''">
+	    	and website = #{website,jdbcType=VARCHAR}
+	    </if>
+ 	</select>
+ 	
+	<select id="getPersonByWhere" resultMap="BaseResultMap">
+	    select *
+	    from person
+	    <where>
+	        <if test="id != null and id != ''">
+		    	 id = #{id,jdbcType=INTEGER}
+		    </if>
+		    <if test="name != null and name != ''">
+		    	and name = #{name,jdbcType=VARCHAR}
+		    </if>
+		    <if test="website != null and website != ''">
+		    	and website = #{website,jdbcType=VARCHAR}
+		    </if>
+	    </where>
+ 	</select>
+ 	
+	<select id="getPersonByWhereWrong" resultMap="BaseResultMap">
+	    select *
+	    from person
+	    where
+	    <if test="id != null and id != ''">
+	    	id = #{id,jdbcType=INTEGER}
+	    </if>
+	    <if test="name != null and name != ''">
+	    	and name = #{name,jdbcType=VARCHAR}
+	    </if>
+	    <if test="website != null and website != ''">
+	    	and website = #{website,jdbcType=VARCHAR}
+	    </if>
+ 	</select>
+	
   <sql id="Example_Where_Clause">
     <!--
       WARNING - @mbg.generated

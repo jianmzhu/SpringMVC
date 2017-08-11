@@ -30,6 +30,13 @@ public class PersonController {
 	@Resource
 	private IUserService userMybatisService;
 
+	/**
+	 * 通过项目路径http://localhost:8080/SpringMVC/mybatis/showPerson?id=1来进行访问
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/showPerson")
 	public String toIndex(HttpServletRequest request, Model model) {
 		int personId = Integer.parseInt(request.getParameter("id"));
@@ -40,5 +47,75 @@ public class PersonController {
 		model.addAttribute("massage", JSON.toJSONString(person));
 		model.addAttribute("massage1", JSON.toJSONString(user));
 		return "mybatis/showMyBatisPerson";
+	}
+	
+	/**
+	 * 通过项目路径http://localhost:8080/SpringMVC/mybatis/showPersonJoinPost?id=1来进行访问
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/showPersonJoinPost")
+	public String showPersonJoinPost(HttpServletRequest request, Model model) {
+		int personId = Integer.parseInt(request.getParameter("id"));
+		Person person = personService.getPersonJoinPost(personId);
+		model.addAttribute("person", person);
+		model.addAttribute("massage", JSON.toJSONString(person));
+		return "mybatis/showMyBatisPersonExample";
+	}
+	
+	/**
+	 * 通过项目路径http://localhost:8080/SpringMVC/mybatis/showPersonByIf?id=1&name=yiibai&website=来进行访问
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/showPersonByIf")
+	public String showPersonByIf(HttpServletRequest request, Model model) {
+		int id = Integer.parseInt(request.getParameter("id"));
+		String name = request.getParameter("name");
+		String website = request.getParameter("website");
+		Person person = personService.getPersonByIf(id, name, website);
+		model.addAttribute("person", person);
+		model.addAttribute("massage", JSON.toJSONString(person));
+		return "mybatis/showMyBatisPersonExample";
+	}
+	
+	/**
+	 * 通过项目路径http://localhost:8080/SpringMVC/mybatis/showPersonByWhere?id=1&name=yiibai&website=来进行访问
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/showPersonByWhere")
+	public String showPersonByWhere(HttpServletRequest request, Model model) {
+		int id = Integer.parseInt(request.getParameter("id"));
+		String name = request.getParameter("name");
+		String website = request.getParameter("website");
+		Person person = personService.getPersonByWhere(id, name, website);
+		model.addAttribute("person", person);
+		model.addAttribute("massage", JSON.toJSONString(person));
+		return "mybatis/showMyBatisPersonExample";
+	}
+	
+	/**
+	 * 通过项目路径http://localhost:8080/SpringMVC/mybatis/showPersonByWhereWrong?id=1&name=yiibai&website=来进行访问
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/showPersonByWhereWrong")
+	public String showPersonByWhereWrong(HttpServletRequest request, Model model) {
+		int id = Integer.parseInt(request.getParameter("id"));
+		String name = request.getParameter("name");
+		String website = request.getParameter("website");
+		Person person = personService.getPersonByWhereWrong(id, name, website);
+		model.addAttribute("person", person);
+		model.addAttribute("massage", JSON.toJSONString(person));
+		return "mybatis/showMyBatisPersonExample";
 	}
 }

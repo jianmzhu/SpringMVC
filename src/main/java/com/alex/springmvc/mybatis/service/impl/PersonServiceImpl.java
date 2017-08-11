@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 
 
+
 import org.springframework.stereotype.Service;  
 
 import com.alex.springmvc.mybatis.dao.IPersonDao;
@@ -26,9 +27,29 @@ public class PersonServiceImpl implements IPersonService {
 	@Resource  
     private IPersonDao personDao;  
 	@Override
-	public Person getPersonById(int userId) {
+	public Person getPersonById(int personId) {
 		// TODO Auto-generated method stub
-		return this.personDao.selectByPrimaryKey(1);
+		return this.personDao.selectByPrimaryKey(personId);
+	}
+	@Override
+	public Person getPersonJoinPost(int personId) {
+		// TODO Auto-generated method stub
+		return this.personDao.getPersonJoinPost(personId);
+	}
+	@Override
+	public Person getPersonByIf(int id, String name, String website) {
+		// TODO Auto-generated method stub
+		return this.personDao.getPersonByIf(id, name, website);
+	}
+	@Override
+	public Person getPersonByWhereWrong(int id, String name, String website) {
+		// TODO Auto-generated method stub
+		return this.personDao.getPersonByWhereWrong(id, name, website);
+	}
+	@Override
+	public Person getPersonByWhere(int id, String name, String website) {
+		// TODO Auto-generated method stub
+		return this.personDao.getPersonByWhere(id, name, website);
 	}  
   
 }  
