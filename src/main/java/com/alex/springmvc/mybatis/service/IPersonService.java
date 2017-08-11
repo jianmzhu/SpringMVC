@@ -18,4 +18,11 @@ public interface IPersonService {
     public Person getPersonByWhereWrong(int id,String name,String website);
     public Person getPersonByWhere(int id,String name,String website);
 
+    /**
+     * 更新方法（带有set、if的更新方法）
+     * 
+     * @param record
+     * @return
+     */
+    int updateByPrimaryKeySelective(Person record);
 }  

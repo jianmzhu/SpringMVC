@@ -51,5 +51,11 @@ public class PersonServiceImpl implements IPersonService {
 		// TODO Auto-generated method stub
 		return this.personDao.getPersonByWhere(id, name, website);
 	}  
+	
+	@Override
+	public int updateByPrimaryKeySelective(Person record) {
+		// TODO Auto-generated method stub
+		return this.personDao.updateByPrimaryKeySelective(record);
+	}
   
 }  
