@@ -25,4 +25,6 @@ public interface IPersonService {
      * @return
      */
     int updateByPrimaryKeySelective(Person record);
+    
+    public Person getPersonByChoose(int id,String name,String website);
 }  

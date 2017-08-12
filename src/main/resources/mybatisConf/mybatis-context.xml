@@ -23,7 +23,6 @@
         <property name="location" value="classpath:jdbc.properties" />  
     </bean>   -->
     
-    
     <!-- 引入缓存的配置文件properties -->  
     <bean  
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
@@ -43,6 +42,9 @@
                 <!-- 此位置是相对于:文件系统 -->  
                 <!-- <value>file:D:/test/test.properties</value> -->  
             </list>  
+        </property>
+        <property name="fileEncoding">
+            <value>UTF-8</value>
         </property>  
     </bean> 
 	<!-- 数据源配置 类使用org.apache.commons.dbcp.BasicDataSource -->

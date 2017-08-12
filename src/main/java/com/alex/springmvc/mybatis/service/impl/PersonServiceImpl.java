@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 
 
 
+
 import org.springframework.stereotype.Service;  
 
 import com.alex.springmvc.mybatis.dao.IPersonDao;
@@ -58,4 +59,9 @@ public class PersonServiceImpl implements IPersonService {
 		return this.personDao.updateByPrimaryKeySelective(record);
 	}
   
+	@Override
+	public Person getPersonByChoose(int id, String name, String website) {
+		// TODO Auto-generated method stub
+		return this.personDao.getPersonByChoose(id, name, website);
+	}
 }  

@@ -3,6 +3,12 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <!-- 不需要使用别名控制，通过mubatis generator生成的dao，pojo，xml都带有完整路径 -->
 <configuration>
+    <properties>
+        <property name="dialect" value="mysql" />
+    </properties>
+    <settings>
+        <setting name="logImpl" value="LOG4J" />
+    </settings>
 	<typeAliases>
 		<!-- <typeAlias alias="User" type="com.alex.mybatis.entity.User" /> --><!-- 命名别名User，地址为com.alex.mybatis.entity.User -->
 		<typeAlias alias="Person" type="com.alex.springmvc.mybatis.entity.Person" />
@@ -29,4 +35,5 @@
 		<mapper class="com.alex.mybatis.dao.IUserDao" />
 		<mapper resource="com/alex/mybatis/entity/Person.xml" />
 	</mappers> -->
+	
 </configuration>

@@ -110,4 +110,6 @@ public interface IPersonDao {
     public Person getPersonByWhereWrong(@Param("id") int id,@Param("name") String name,@Param("website") String website);
 
     public Person getPersonByWhere(@Param("id") int id,@Param("name") String name,@Param("website") String website);
+
+    public Person getPersonByChoose(@Param("id") int id,@Param("name") String name,@Param("website") String website);
 }

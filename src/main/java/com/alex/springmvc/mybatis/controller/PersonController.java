@@ -146,4 +146,22 @@ public class PersonController {
 		model.addAttribute("person", person);
 		return "mybatis/showMyBatisPersonExample";
 	}
+	
+	/**
+	 * 通过项目路径http://localhost:8080/SpringMVC/mybatis/showPersonByChoose?id=1&name=yiibai&website=来进行访问
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/showPersonByChoose")
+	public String showPersonByChoose(HttpServletRequest request, Model model) {
+		int id = Integer.parseInt(request.getParameter("id"));
+		String name = request.getParameter("name");
+		String website = request.getParameter("website");
+		Person person = personService.getPersonByChoose(id, name, website);
+		model.addAttribute("person", person);
+		model.addAttribute("massage", JSON.toJSONString(person));
+		return "mybatis/showMyBatisPersonExample";
+	}
 }
