@@ -124,7 +124,7 @@ public class PersonController {
 	
 	/**
 	 * 通过项目路径http://localhost:8080/SpringMVC/mybatis/updatePersonBySetIf?id=1&name=yiibai1&website=11来进行访问
-	 * 测试
+	 * 
 	 * @param request
 	 * @param model
 	 * @return
